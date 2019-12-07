@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Fav and touch icons -->
+<link rel="shortcut icon" href="img/fav_touch_icons/favicon.jpg" />
+<link rel="apple-touch-icon" href="img/fav_touch_icons/apple-touch-icon.png" />
+<link rel="apple-touch-icon" sizes="72x72" href="img/fav_touch_icons/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon" sizes="114x114" href="img/fav_touch_icons/apple-touch-icon-114x114.png" />
+
+<!-- IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!-- Google Web Font -->
+<link href='http://fonts.useso.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
+
+<!-- Bootstrap CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Custom CSS -->
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+<!-- Modernizr -->
+<script src="js/modernizr-2.6.2.min.js"></script>
+<!-- Libs -->
+<script src="http://ajax.useso.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<!--音乐播放插件-->
+<link rel="stylesheet" href="APlayer.min.css">
+<script src="APlayer.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>RecentMusic</title>
+</head>
+<body>
+    <section style="padding:0px">
+    <table id="musicTable" class="table table-striped" data-query-params="queryParams"
+           data-toolbar="#toolbar"
+           data-pagination="true"
+           data-search="true"
+           data-show-refresh="true"
+           data-show-toggle="true"
+           data-show-columns="true"
+           data-page-size="5">
+        <thead>
+        <th align="center">歌名</th>
+        <th align="center">歌手</th>
+        <th align="center">播放按钮</th>
+        </thead>
+    </table>
+        <br/>
+        <br/>
+        <br/>
+    </section>
+    <script type="text/javascript">
+        $(function(){
+            $.ajax({
+                type: "GET",
+                contentType: "application/json;charset=UTF-8",
+                async: false,
+                url: 'getRecentMusic?name='+getCookie("name"),
+                success: function (data) {
+                    var tbody = document.getElementById("musicTable");
+                    for(var i = 0;i < data.length; i++){ //遍历一下json数据
+                        var trow = getDataRow(data[i]); //定义一个方法,返回tr数据
+                        tbody.appendChild(trow);
+                    }
+                    function getDataRow(h){
+                        var row = document.createElement('tr'); //创建行
+
+                        var idCell = document.createElement('td'); //创建第一列id
+                        idCell.innerHTML = h.song_name; //填充数据
+                        row.appendChild(idCell); //加入行  ，下面类似
+
+                        var nameCell = document.createElement('td');//创建第二列name
+                        nameCell.innerHTML = h.author;
+                        row.appendChild(nameCell);
+
+
+                        //到这里，json中的数据已经添加到表格中，下面为每行末尾添加删除按钮
+
+                        var delCell = document.createElement('td');//创建第三列，操作列
+                        row.appendChild(delCell);
+                        var btnPlay = document.createElement('input'); //创建一个input控件
+                        btnPlay.setAttribute('type','button'); //type="button"
+                        btnPlay.setAttribute('value','播放');
+                        btnPlay.setAttribute("class",'btn')
+                        var btnStop = document.createElement('input');
+                        btnStop.setAttribute('type','button');
+                        btnStop.setAttribute('value','收藏');
+                        btnStop.setAttribute('class','btn');
+                        //播放音乐操作
+                        btnPlay.onclick=function(){
+                            $.ajax({
+                                type:'GET',
+                                contentType:"application/json;charset=UTF-8",
+                                url:'saveRecentMusic?sid='+h.sid+"&name="+getCookie("name"),
+                                success:function (data) {
+
+                                },
+                                error:function () {
+                                    alert("发生了某些异常，请稍等")
+                                }
+                            })
+                            parent.window.changeMusic(h);
+                        }
+                        btnStop.onclick = function(){
+                            $.ajax({
+                                type:'POST',
+                                contentType:"application/json;charset=UTF-8",
+                                url: 'saveLoveSong?uid='+getCookie("uid")+"&sid="+h.sid,
+                                success:function (result) {
+                                    if(result.code==1){
+                                        alert("收藏成功")
+                                    }
+                                    else{
+                                        alert("歌曲已收藏过")
+                                    }
+                                },
+                                error:function () {
+                                    alert("网络或者服务器出了点问题，请稍等")
+                                }
+                            })
+                        }
+                        delCell.appendChild(btnPlay);  //把播放按钮加入td，别忘了
+                        delCell.appendChild(btnStop);
+
+                        return row; //返回tr数据
+                    }
+                }
+            });
+        });
+
+
+    </script>
+</body>
+
+
+<script src="js/plugins.js" type="text/javascript"></script>
+<script src="js/slideshow/slideshow.js" type="text/javascript"></script>
+<script src="js/scripts.js"></script>
+<script type="text/javascript">
+
+</script>
+
+<script src="js/util.js"></script>
+</html>

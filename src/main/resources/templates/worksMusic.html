@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Fav and touch icons -->
+<link rel="shortcut icon" href="img/fav_touch_icons/favicon.jpg" />
+<link rel="apple-touch-icon" href="img/fav_touch_icons/apple-touch-icon.png" />
+<link rel="apple-touch-icon" sizes="72x72" href="img/fav_touch_icons/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon" sizes="114x114" href="img/fav_touch_icons/apple-touch-icon-114x114.png" />
+
+<!-- IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!-- Google Web Font -->
+<link href='http://fonts.useso.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
+
+<!-- Bootstrap CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Custom CSS -->
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+<!-- Modernizr -->
+<script src="js/modernizr-2.6.2.min.js"></script>
+<!-- Libs -->
+<script src="http://ajax.useso.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!--录音插件-->
+<script src="js/recorder.js"></script>
+<!--音乐播放插件-->
+<link rel="stylesheet" href="APlayer.min.css">
+<script src="APlayer.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>RecentMusic</title>
+</head>
+<body>
+<section id="gallery" style="padding:0px">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1 class="section-title center">uploadMusic</h1>
+                </div>
+            </div>
+        </div>
+        <div class="gallery-scroller" style="overflow-y:visible;overflow-x:visible;height:350px" >
+            <ul id="first-ul">
+
+            </ul>
+            <ul id="second-ul" style="height: 30px">
+            </ul>
+        </div>
+    <div>
+        <button class="btn btn-dark btn-icon" data-toggle="modal" data-target="#uploadMusicModal">
+            <i class='icon-music' style='font-size: 15px'></i><span>上传</span>
+        </button>
+    </div>
+    <div class="modal fade" id="uploadMusicModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">上传音乐框</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="upload-form" method="POST">
+                        <input type="hidden" id="uidInput" name="uid" value="">
+                        <input type="text" id="songName" name="name" class="form-control" placeholder="输入歌曲名字" />
+                        上传歌曲：<input type="file" name="songFile" id="uploadSong"  />
+                        上传歌曲封面:<input type="file" name="coverFile" id="uploadCover"/>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary" id="upload-btn" >提交更改</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    <script type="text/javascript" src="record.js"></script>
+
+    <br/>
+    <br/>
+    <br/>
+
+</section>
+<script type="text/javascript">
+    $('#upload-btn').click(function () {
+        var form = new FormData(document.getElementById('upload-form'));
+        form.set("userName",getCookie("name"))
+        if(document.getElementById("uploadSong").value!=""){
+            $.ajax({
+                url:'uploadSong',
+                data:form,
+                type:"post",
+                dataType:"json",
+                contentType:false,
+                processData: false,
+                success:function (result) {
+                    if(result.code==1){
+                        alert("上传成功")
+                    }
+                    else {
+                        alert("上传失败")
+                    }
+                },
+                error:function () {
+                    alert("Something wrong")
+                }
+            })
+        }
+        else{
+            alert("上传歌曲不能为空")
+        }
+
+    })
+    var recorder;
+
+    var audio = document.querySelector('audio');
+
+    function startRecording() {
+        HZRecorder.get(function (rec) {
+            recorder = rec;
+            recorder.start();
+        });
+    }
+
+    function stopRecording() {
+        recorder.stop();
+    }
+
+    function playRecording() {
+        recorder.play(audio);
+    }
+
+    function cancelAudio(){
+        recorder.stop();
+        recorder.clear();
+    }
+
+    function uploadAudio() {
+        recorder.upload("/upload", function (state, e) {
+            switch (state) {
+                case 'uploading':
+                    //var percentComplete = Math.round(e.loaded * 100 / e.total) + '%';
+                    break;
+                case 'ok':
+                    //alert(e.target.responseText);
+                    alert("上传成功");
+                    break;
+                case 'error':
+                    alert("上传失败");
+                    break;
+                case 'cancel':
+                    alert("上传被取消");
+                    break;
+            }
+        });
+    }
+
+</script>
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            type:"GET",
+            contentType:"application/json;charset=UTF-8",
+            url:"getUploadSong?userName="+getCookie("name"),
+            success:function (result) {
+                var firstUl = document.getElementById("first-ul")
+                var secondUl = document.getElementById("second-ul")
+                for (var i = 0; i < result.length ; i++) {
+                    var data = result[i]
+                    var li = getDataRow1(data)
+                    var li2 = getDataRow2(data)
+                    firstUl.appendChild(li)
+                    secondUl.appendChild(li2)
+                }
+                function getDataRow1(h) {
+                    var li = document.createElement('li')
+                    var a = document.createElement('a')
+                    var img = document.createElement('img')
+                    var I = document.createElement('i')
+                    a.href = "javascript:void(0);"
+                    a.onclick = function () {
+                        parent.window.playUploadMusic(h)
+                    }
+                    a.setAttribute("title",h.name)
+                    img.setAttribute('src',h.coverUrl)
+                    I.setAttribute('class',"hover-icon")
+                    a.appendChild(I)
+                    li.appendChild(a)
+                    li.appendChild(img)
+                    return li;
+                }
+                function getDataRow2(h) {
+                    var li2 = document.createElement('li')
+
+                    li2.innerHTML = "歌名:"+h.name+'<br/>'+
+                            "上传日期："+h.createTime.substring(0,10)
+                    return li2;
+                }
+            },
+            error:function () {
+                alert("网络出了点问题，请稍等")
+            }
+        })
+    })
+    window.URL = window.URL;
+    navigator.getUserMedia = navigator.webkitGetUserMedia;
+    if (navigator.getUserMedia) {
+        navigator.getUserMedia({video:true,audio:true}, function(localMediaStream){
+            var context = new AudioContext();
+            var mediaStreamSource = context.createMediaStreamSource(localMediaStream);
+            window.MediaStreamSource = mediaStreamSource;
+        }, function(){
+
+
+        });
+    }else {
+        alert("消息提示,你的浏览器不支持录音");
+    }
+
+    function record(){
+        var rec = new Recorder(MediaStreamSource);
+        window.rec=rec;
+        alert("录音开始了");
+    }
+    function stopRecord() {
+        window.rec.stop();
+        alert("录音结束了")
+    }
+   /* $(function(){
+        $.ajax({
+            type: "GET",
+            contentType: "application/json;charset=UTF-8",
+            async: false,
+            url: 'getRecentMusic?name='+getCookie("name"),
+            success: function (data) {
+                var tbody = document.getElementById("musicTable");
+                for(var i = 0;i < data.length; i++){ //遍历一下json数据
+                    var trow = getDataRow(data[i]); //定义一个方法,返回tr数据
+                    tbody.appendChild(trow);
+                }
+                function getDataRow(h){
+                    var row = document.createElement('tr'); //创建行
+
+                    var idCell = document.createElement('td'); //创建第一列id
+                    idCell.innerHTML = h.song_name; //填充数据
+                    row.appendChild(idCell); //加入行  ，下面类似
+
+                    var nameCell = document.createElement('td');//创建第二列name
+                    nameCell.innerHTML = h.author;
+                    row.appendChild(nameCell);
+
+
+                    //到这里，json中的数据已经添加到表格中，下面为每行末尾添加删除按钮
+
+                    var delCell = document.createElement('td');//创建第三列，操作列
+                    row.appendChild(delCell);
+                    var btnPlay = document.createElement('input'); //创建一个input控件
+                    btnPlay.setAttribute('type','button'); //type="button"
+                    btnPlay.setAttribute('value','播放');
+                    btnPlay.setAttribute("class",'btn')
+                    var btnStop = document.createElement('input');
+                    btnStop.setAttribute('type','button');
+                    btnStop.setAttribute('value','收藏');
+                    btnStop.setAttribute('class','btn');
+                    //播放音乐操作
+                    btnPlay.onclick=function(){
+                        $.ajax({
+                            type:'GET',
+                            contentType:"application/json;charset=UTF-8",
+                            url:'saveRecentMusic?sid='+h.sid+"&name="+getCookie("name"),
+                            success:function (data) {
+
+                            },
+                            error:function () {
+                                alert("发生了某些异常，请稍等")
+                            }
+                        })
+                        parent.window.changeMusic(h.url);
+                    }
+                    btnStop.onclick = function(){
+                        $.ajax({
+                            type:'POST',
+                            contentType:"application/json;charset=UTF-8",
+                            url: 'saveLoveSong?uid='+getCookie("uid")+"&sid="+h.sid,
+                            success:function (result) {
+                                if(result.code==1){
+                                    alert("收藏成功")
+                                }
+                                else{
+                                    alert("歌曲已收藏过")
+                                }
+                            },
+                            error:function () {
+                                alert("网络或者服务器出了点问题，请稍等")
+                            }
+                        })
+                    }
+                    delCell.appendChild(btnPlay);  //把播放按钮加入td，别忘了
+                    delCell.appendChild(btnStop);
+
+                    return row; //返回tr数据
+                }
+            }
+        });
+    });*/
+
+
+</script>
+</body>
+
+
+<script src="js/plugins.js" type="text/javascript"></script>
+<script src="js/slideshow/slideshow.js" type="text/javascript"></script>
+<script src="js/scripts.js"></script>
+<script type="text/javascript">
+
+</script>
+
+<script src="js/util.js"></script>
+</html>

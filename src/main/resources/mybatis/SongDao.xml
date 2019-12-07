@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zhuo.musiccommuity.Dao.SongDao">
+
+    <resultMap id="Song" type="com.zhuo.musiccommuity.Pojo.Song">
+        <result column="sid" javaType="long" property="sid"/>
+        <result column="song_name" javaType="string" property="song_name"/>
+        <result column="author" javaType="string" property="author"/>
+        <result column="url" javaType="string" property="url"/>
+    </resultMap>
+    <resultMap id="TimesOfPlay" type="com.zhuo.musiccommuity.Pojo.TimesOfPlay">
+        <result column="id" javaType="long" property="id"/>
+        <result column="sid" javaType="int" property="sid"/>
+        <result column="timesOfPlay" javaType="long" property="timesOfPlay"/>
+    </resultMap>
+
+    <select id="query" resultMap="Song">
+        SELECT * FROM Song LIMIT 15;
+    </select>
+    <select id="querys" resultMap="Song">
+        SELECT * FROM Song where sid in <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+        #{item}
+    </foreach>
+        ORDER BY FIELD(sid,<foreach collection="list" index="index" separator="," item="item">
+        #{item}
+    </foreach>
+       )
+    </select>
+    <select id="getLatestSongID" resultType="INT">
+        SELECT max(sid) FROM Song
+    </select>
+    <select id="searchSong" resultMap="Song">
+        SELECT * FROM Song where song_name like "%"#{name}"%"
+    </select>
+    <insert id="insertSong" parameterType="com.zhuo.musiccommuity.Pojo.Song" keyProperty="sid" useGeneratedKeys="true">
+        INSERT INTO Song(song_name,author,url) VALUES (
+        #{song_name},#{author},#{url}
+        )
+    </insert>
+    <!--<select id="selectTOP" resultMap="TimesOfPlay">
+        SELECT * FROM HotSong WHERE sid = #{sid}
+    </select>-->
+    <insert id="insertManySongs">
+        REPLACE INTO Song(song_name,author,url) VALUES
+        <foreach collection="list" item="item"  separator=",">
+            (
+            #{item.song_name},#{item.author},#{item.url}
+            )
+        </foreach>
+    </insert>
+    <insert id="updateTOP">
+        INSERT INTO HotSong(sid,timesOfPlay) VALUES (
+        #{sid},1
+        ) ON DUPLICATE KEY UPDATE timesOfPlay = timesOfPlay + 1
+    </insert>
+   <!-- &lt;!&ndash;<update id="updateTOP">
+        update HotSong
+        <set>
+            timesOfPlay = timesOfPlay + 1
+        </set>
+        where sid = #{sid}
+    </update>-->
+    <select id="selectHotSong" resultType="Int">
+        SELECT sid FROM HotSong ORDER BY timesOfPlay DESC Limit 15
+    </select>
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zhuo.musiccommuity.Dao.UDao">
+
+    <resultMap id="User" type="com.zhuo.musiccommuity.Pojo.User">
+        <result column="uid" javaType="long" property="uid"/>
+        <result column="name" javaType="string" property="name"/>
+        <result column="password" javaType="string" property="password"/>
+        <result column="loveSong" javaType="string" property="loveSong"/>
+        <result column="identity" javaType="int" property="identity"/>
+    </resultMap>
+
+
+    <select id="query" resultMap="User">
+        SELECT * FROM user WHERE uid = #{uid}
+    </select>
+
+    <select id="queryByUser" resultMap="User">
+        SELECT * FROM user WHERE name = #{name}
+    </select>
+    <select id="getUid" resultType="long">
+        select uid FROM user WHERE name = #{name}
+    </select>
+    <select id="querys" resultMap="User">
+    SELECT * FROM user where uid in <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+    #{item}
+    </foreach>
+    </select>
+    <select id="searchPeople" resultMap="User">
+        SELECT * FROM user where name like "%"#{searchPeopleName}"%"
+    </select>
+    <insert id="insert" keyProperty="uid" parameterType="com.zhuo.musiccommuity.Pojo.User" useGeneratedKeys="true">
+        INSERT into user(name,password,identity) values(
+          #{name},#{password},#{identity}
+        )
+    </insert>
+
+    <insert id="insertTest" keyProperty="user_id" parameterType="com.zhuo.musiccommuity.Pojo.UserTest" useGeneratedKeys="true">
+        INSERT into user_info(user_id,name,city) values(
+        #{user_id},#{name},#{city}
+        )
+    </insert>
+    <insert id="insertManyTest">
+        INSERT INTO user_info(user_id,name,city) VALUES
+        <foreach collection="list" item="item"  separator=",">
+            (
+            #{item.user_id},#{item.name},#{item.city}
+            )
+        </foreach>
+    </insert>
+</mapper>

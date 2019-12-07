@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zhuo.musiccommuity.Dao.UploadSongDao">
+
+    <resultMap id="uploadSong" type="com.zhuo.musiccommuity.Pojo.UploadSong">
+        <result column="id" javaType="long" property="id"/>
+        <result column="coverUrl" javaType="string" property="coverUrl"/>
+        <result column="name" javaType="string" property="name"/>
+        <result column="userName" javaType="string" property="userName"/>
+        <result column="songUrl" javaType="string" property="songUrl"/>
+        <result column="createTime" javaType="Date" property="createTime" />
+    </resultMap>
+    <select id="tests" resultMap="uploadSong">
+        SELECT * FROM uploadSong limit 3
+    </select>
+
+    <insert id="insert" parameterType="com.zhuo.musiccommuity.Pojo.UploadSong" keyProperty="id" useGeneratedKeys="true" >
+        INSERT INTO uploadsong (name,coverUrl,songUrl,userName,createTime) VALUES (#{name},#{coverUrl},#{songUrl},#{userName},#{createTime})
+    </insert>
+    <select id="query" resultMap="uploadSong">
+        SELECT * FROM uploadSong where userName = #{userName}
+    </select>
+    <select id="querys" resultMap="uploadSong">
+        SELECT * FROM uploadSong where id in <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+        #{item}
+    </foreach>
+    </select>
+    <select id="getLatestSongID" resultType="INT">
+        SELECT max(id) FROM uploadsong
+    </select>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhuo.musiccommuity.Dao.MessageDao">
+    <resultMap id="message" type="com.zhuo.musiccommuity.Pojo.Message">
+        <result column="sendUser" javaType="string" property="sendUser"/>
+        <result column="receiveUser" javaType="string" property="receiveUser"/>
+        <result column="message" javaType="string" property="message"/>
+        <result column="createTime" javaType="string" property="createTime"/>
+    </resultMap>
+    <insert id="insertMessage" parameterType="com.zhuo.musiccommuity.Pojo.Message"  useGeneratedKeys="true">
+        INSERT INTO message(sendUser,receiveUser,message,createTime) VALUES (
+        #{sendUser},#{receiveUser},#{message},#{createTime}
+        )
+    </insert>
+    <select id="getUserMessage" resultMap="message">
+        SELECT * FROM message WHERE receiveUser = #{receiveUser} ORDER BY createTime DESC LIMIT 30
+    </select>
+</mapper>

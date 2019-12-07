@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zhuo.musiccommuity.Dao.UinfoDao">
+
+    <resultMap id="user" type="com.zhuo.musiccommuity.Pojo.User">
+        <result column="uid" javaType="long" property="uid"/>
+        <result column="password" javaType="string" property="password"/>
+        <result column="name" javaType="string" property="name"/>
+        <result column="loveSong" javaType="string" property="loveSong"/>
+        <result column="identity" javaType="int" property="identity"/>
+        <result column="loveUser" javaType="string" property="loveUser"/>
+    </resultMap>
+    <resultMap id="UserPageInfo" type="com.zhuo.musiccommuity.Pojo.UserPageInfo">
+        <result column="uid" javaType="long" property="uid"/>
+        <result column="name" javaType="string" property="name"/>
+        <result column="loveSong" javaType="string" property="loveSong"/>
+        <result column="loveUser" javaType="string" property="loveUser"/>
+        <result column="address" javaType="string" property="address"/>
+        <result column="introduction" javaType="string" property="introduction"/>
+        <result column="sex" javaType="string" property="sex"/>
+        <result column="userCover" javaType="string" property="userCover"/>
+    </resultMap>
+    <sql id="loveSongColumns">
+        loveSong
+    </sql>
+
+    <select id="queryLoveSong" resultType="String">
+        SELECT loveSong FROM user where uid = #{uid};
+    </select>
+    <select id="queryLoveUser" resultType="String">
+        SELECT loveUser FROM user where uid = #{uid};
+    </select>
+    <update id="saveLoveSong" >
+        UPDATE user
+        <set>
+        <if test="loveSong!=null and loveSong!=''">
+            loveSong = #{loveSong},
+        </if>
+        </set>
+        where uid = #{uid}
+    </update>
+    <update id="updateLoveUser">
+        UPDATE user
+        <set>
+            <if test="loveUser!=null and loveUser!=''">
+                loveUser = #{loveUser},
+            </if>
+        </set>
+        where uid = #{uid}
+    </update>
+    <select id="getUserPageMsgOfUser" resultMap="user">
+        SELECT name,uid,loveSong,loveUser FROM user where uid = #{uid}
+    </select>
+    <select id="getUserPageMsg" resultMap="UserPageInfo">
+        SELECT name,user.uid,loveSong,loveUser,address,introduction,sex,userCover FROM user inner join userInfomation on user.uid = userInfomation.uid
+          WHERE user.uid = #{uid}
+    </select>
+</mapper>

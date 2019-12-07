@@ -1,0 +1,762 @@
+ <!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	
+	<!-- Page Title -->
+	<title>Beat</title>
+	
+	<meta name="keywords" content="onepage, single page, band template, retina ready, responsive, modern html5 template, bootstrap, css3, music, band" />
+	<meta name="description" content="Beat - Responsive One-Page Music & Band HTML5 Template" />
+	<meta name="author" content="Wisely Themes" />
+	
+	<!-- Mobile Meta Tag -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+	<!-- Fav and touch icons -->
+	<link rel="shortcut icon" href="img/fav_touch_icons/favicon.jpg" />
+	<link rel="apple-touch-icon" href="img/fav_touch_icons/apple-touch-icon.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="img/fav_touch_icons/apple-touch-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="img/fav_touch_icons/apple-touch-icon-114x114.png" />
+	<script src="APlayer.min.js"></script>
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="APlayer.min.css">
+	<!-- IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> 
+	<![endif]-->
+
+	<!-- Google Web Font -->
+	<link href='http://fonts.useso.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
+	
+	<!-- Bootstrap CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	
+	<!-- Custom CSS -->
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	
+	<!-- Modernizr -->
+	<script src="js/modernizr-2.6.2.min.js"></script>
+	<style>
+		div.search {padding: 0px 0;margin-top: 0}
+		form {
+			position: relative;
+			width: 300px;
+			margin: 0 auto;
+		}
+		/*搜索框1*/
+		.bar1 input {
+			width: 100%;
+			height: 42px;
+			padding-left: 13px;
+			border: 2px solid #7BA7AB;
+			border-radius: 5px;
+			background: #F9F0DA;
+			color: #9E9C9C;
+		}
+		.bar1 button {
+			border: none;
+			outline: none;
+			height: 42px;
+			width: 42px;
+			cursor: pointer;
+			position: absolute;
+			top: 0;
+			right: 0;
+			background: #7BA7AB;
+			border-radius: 0 5px 5px 0;
+		}
+		.bar1 button:before {
+			content: "\f002";
+			font-family: FontAwesome;
+			font-size: 16px;
+			color: #F9F0DA;
+		}
+		.bar1{width:520px;height:80px;margin:60px auto 0 auto;}
+		.bar1 ul{ height:35px; width:500px; list-style:none; margin-left:70px}
+		.bar1 ul li{ float:left}
+		.bar1 ul li a{ float:left; line-height:35px; padding:0 20px; text-decoration:none; color:#000; font-size:14px; font-weight:bold;}
+
+
+	</style>
+	<script type="text/javascript">
+        $(function(){
+            var personalPage = document.getElementById("personalPage")
+            personalPage.setAttribute("href","/userPage?uid="+getCookie("uid"));
+            var li1 = document.getElementById("searchLi1")
+			var li2 = document.getElementById("searchLi2")
+			li1.onclick= function () {
+				li1.setAttribute("style","background-color:#3f9f97; color:#000")
+				li2.setAttribute("style","")
+                $("#search-people").hide();
+                $("#search-people-btn").hide();
+                $("#search-song").show();
+                $("#search-btn").show();
+            }
+            li2.onclick = function () {
+                li1.setAttribute("style","")
+				li2.setAttribute("style","background-color:#3f9f97; color:#000")
+                $("#search-song").hide();
+                $("#search-btn").hide();
+                $("#search-people").show();
+                $("#search-people-btn").show();
+			}
+        });
+	</script>
+	<!--<style type="text/css">
+		*{margin:0;padding:0;list-style-type:none;}
+		a,img{border:0;}
+		/* searchbox */
+		.searchbox{width:520px;height:80px;margin:40px auto 0 auto;}
+		.search bar1 ul{ height:35px; width:500px; list-style:none; margin-left:20px}
+		.search bar1 ul li{ float:left}
+		.search bar1 ul li a{ float:left; line-height:35px; padding:0 20px; text-decoration:none; color:#000; font-size:14px; font-weight:bold;}
+		.search bar1 ul li .style1{ background-color:#000; color:#fff}
+		.search bar1 ul li .style2{ background-color:#f00;color:#fff}
+		.search bar1 ul li .style3{ background-color:#F90;color:#fff}
+		.bodys input{ height:30px;line-height:30px;width:390px;padding:0 10px;float:left;}
+		.bodys .one{ border:#000 3px solid}
+		.bodys .two{ border:#f00 3px solid}
+		.bodys .three{ border:#F90 3px solid}
+		.bodys .one1{ background-color:#000; }
+		.bodys .two2{ background-color:#f00;}
+		.bodys .three3{ background-color:#F90;}
+		.bodys button{float:left;border:0;height:36px;width:100px; color:#FFF; line-height:36px;text-align:center;overflow:hidden;}
+	</style>-->
+</head>
+<body>
+	<audio src="" id="myaudio" controls="controls" loop="false" hidden="true">
+
+	</audio>
+	<!-- BEGIN HEADER -->
+	<header id="header">
+		<section class="nav-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+						<a href="#home" class="nav-logo"><img src="img/logo_small.png" alt="" height="51" /></a>
+						
+						<nav id="nav"><!-- BEGIN MAIN MENU -->
+							<ul>
+								<li><a href="/index">主页</a></li>
+								<li><a href="/user">音乐</a></li>
+								<li><a id="personalPage">个人</a></li>
+								<li><a href="#store">Store</a></li>
+								<li><a href="#contacts">Contact us</a></li>
+
+							</ul>
+						</nav><!-- END MAIN MENU -->
+						
+						<ul id="beginUL" class="sn-icons"><!-- BEGIN SOCIAL ICONS -->
+							<li><a href=""><i class="icon-facebook-sign"></i></a></li>
+							<li><a href=""><i class="icon-twitter-sign"></i></a></li>
+							<li><a href=""><i class="icon-instagram"></i></a></li>
+							<li><a href=""><i class="icon-google-plus-sign"></i></a></li>
+							<li><a href=""><i class="icon-pinterest-sign"></i></a></li>
+							<li><a href=""><i class="icon-rss-sign"></i></a></li>
+
+
+						</ul><!-- END SOCIAL ICONS -->
+					</div>
+				</div>
+			</div>
+		</section>
+	</header>
+	<!-- END HEADER -->
+
+	<!-- BEGIN HOME SECTION -->
+	<section id="home">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<a href="#home" id="logo" class="nav-logo"><img src="img/logo.png" alt="" width="379" height="205" /></a>
+					<!--<div class="search bar1">
+						<ul>
+							<li>搜人</li>
+							<li>搜歌</li>
+						</ul>
+
+					</div>-->
+					<div class="search bar1">
+						<ul class="border1">
+							<li id="searchLi1"><a href="javascript:void(0)">搜歌</a></li>
+							<li id="searchLi2"><a href="javascript:void(0)">搜人</a></li>
+						</ul>
+						<form id="searchForm">
+							<input type="text" id="search-song" placeholder="请输入您要搜索的歌曲...">
+							<button type="button" id="search-btn" ></button>
+							<input type="text" id="search-people" placeholder="请输入您要搜索的用户名字..." style="display:none">
+							<button type="button" id="search-people-btn" style="display:none"></button>
+						</form>
+						<!--<div class="bodys">
+							<p><input type="text" value="" id="歌" class="one" placeholder="输入宝贝" /><button class="one1">搜索</button></p>
+							<p><input type="text" value="" id="人" class="two" placeholder="输入宝贝" /><button class="two2">搜索</button></p>
+							<p><input type="text" value="" id="名" class="three" placeholder="输入店铺" /><button class="three3">搜索</button></p>
+						</div>-->
+					</div>
+					<div style="margin-top: 20px">
+						<table class="table" id="searchMusicTable">
+						</table>
+					</div>
+					<br>
+					<br>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+
+				</div>
+			</div>
+		</div>
+		<div id="bottom-home" style="margin-top: 20px"></div>
+
+	</section>
+	<!-- END HOME SECTION -->
+
+
+	<!-- End News/Blog Page Overlay -->
+	
+	<!-- BEGIN THE BAND SECTION -->
+	<section id="theband">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4">
+					<h1 class="section-title">HotMusic</h1>
+					<p class="section-desc">
+						想知道更多潮流歌曲吗，敬请关注
+						<br/><br/><br/>
+						<a href="" class="btn btn-dark btn-icon open-overlay" data-overlay-id="theband-overlay"><i class="icon-file-text-alt"></i><span>More About us</span></a>
+					</p>
+				</div>
+				<div>
+					<table id="musicbody" class="table table-striped" data-query-params="queryParams"
+						   data-toolbar="#toolbar"
+						   data-pagination="true"
+						   data-search="true"
+						   data-show-refresh="true"
+						   data-show-toggle="true"
+						   data-show-columns="true"
+						   data-page-size="5">
+						<thead>
+						<th data-field="song-name">歌曲名字</th>
+						<th data-field="singer">歌手</th>
+						<th data-field="t_name">播放按钮</th>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div id="bottom-theband" class="bg-color2"></div>
+	</section>
+	<!-- END THE BAND SECTION -->
+
+	
+	<!-- BEGIN GALLERY SECTION -->
+	<section id="gallery">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<h1 class="section-title center">UserMusic</h1>
+				</div>
+			</div>
+		</div>
+		<div class="gallery-scroller" style="overflow-y:visible;overflow-x:visible;height:350px" >
+			<ul id="first-ul">
+
+			</ul>
+			<ul id="second-ul" style="height: 30px">
+			</ul>
+		</div>
+	</section>
+	<!-- END GALLERY SECTION -->
+	<!--注册模态框-->
+	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog  modal-dialog-centered" role="document" >
+			<div class="modal-content">
+				<div class="modal-header">
+
+					<h4 class="modal-title" id="registerLabel">注册框</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<form id="register-form">
+						<div class="row">
+						<div class="col-lg-12">
+							<div class="input-group">
+								<span class="input-group-addon" >注册账号</span>
+								<input type="text" id="registerName" name="registerName" class="form-control" placeholder="注册账号" />
+							</div>
+						</div>
+						</div><!-- /.col-lg-6 -->
+						<br>
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="input-group">
+									<span class="input-group-addon" >注册密码</span>
+									<input type="password" name="registerPassword" id="registerPassword"class="form-control" placeholder="注册密码" />
+								</div>
+							</div><!-- /.col-lg-6 -->
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-lg-12">
+							<div class="input-group">
+								<span class="input-group-addon" >选择要注册的用户类型</span>
+								<select name="userType" id="user-Type" class="form-control">
+									<option value="0">普通用户</option>
+									<option value="1">音乐家</option>
+								</select>
+							</div>
+						</div><!-- /.col-lg-6 -->
+						</div>
+
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="register-btn" >提交更改</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div>
+	<!-- 登陆模态框-->
+	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">登陆框</h4>
+				</div>
+				<div class="modal-body">
+					<form id="login-form">
+						<input type="text" id="loginName" name="name" class="form-control" placeholder="账号" />
+						<input type="password" name="password" id="loginPassword" placeholder="输入密码" />
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="login-btn" >提交更改</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div>
+	<!-- BEGIN STORE SECTION -->
+	<section id="store">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<h1 class="section-title center">Beat Store</h1>
+				</div>
+			</div>
+		</div>
+		
+		<div class="flexslider">
+			<ul class="slides">
+				<li>
+					<img src="http://oi42.tinypic.com/ou8djm.jpg" alt="" />
+					<h3 class="color">Beat - New Album</h3>
+					<h2>$29</h2>
+					<a href="#" class="btn btn-default btn-icon"><i class="icon-shopping-cart"></i><span>Buy Now!</span></a>
+				</li>
+				<li>
+					<img src="http://oi42.tinypic.com/ou8djm.jpg" alt="" />
+					<h3 class="color">Beat T-Shirt - White Version</h3>
+					<h2>$10</h2>
+					<a href="#" class="btn btn-default btn-icon"><i class="icon-shopping-cart"></i><span>Buy Now!</span></a>
+				</li>
+				<li>
+					<img src="http://placehold.it/504x428" alt="" />
+					<h3 class="color">Beat Mug</h3>
+					<h2>$7</h2>
+					<a href="#" class="btn btn-default btn-icon"><i class="icon-shopping-cart"></i><span>Buy Now!</span></a>
+				</li>
+				<li>
+					<img src="http://oi42.tinypic.com/ou8djm.jpg" alt="" />
+					<h3 class="color">Beat - First Album</h3>
+					<h2>$19</h2>
+					<a href="#" class="btn btn-default btn-icon"><i class="icon-shopping-cart"></i><span>Buy Now!</span></a>
+				</li>
+				<li>
+					<img src="http://oi42.tinypic.com/ou8djm.jpg" alt="" />
+					<h3 class="color">Beat - DVD</h3>
+					<h2>$39</h2>
+					<a href="#" class="btn btn-default btn-icon"><i class="icon-shopping-cart"></i><span>Buy Now!</span></a>
+				</li>
+				<li>
+					<img src="http://oi42.tinypic.com/ou8djm.jpg" alt="" />
+					<h3 class="color">Beat T-Shirt - Dark Version</h3>
+					<h2>$10</h2>
+					<a href="#" class="btn btn-default btn-icon"><i class="icon-shopping-cart"></i><span>Buy Now!</span></a>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<!-- END STORE SECTION -->
+		
+	<!-- BEGIN CONTACTS SECTION -->
+	<section id="contacts" class="bg-color2">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<h1 class="section-title center">Contact us</h1>
+					
+					<div id="form-wrap" class="col-sm-5 center">
+						<form id="form-contact" method="post" action="#" class="bg-color1">
+							<input type="text" placeholder="Name" name="contact_name" id="contact_name" />
+							<input type="email" placeholder="Email" name="contact_email" id="contact_email" />
+							<input type="text" placeholder="Subject" name="contact_subject" id="contact_subject" />
+							<textarea cols="6" rows="4" placeholder="Message" name="contact_message" id="contact_message"></textarea>
+							<a href="" id="contact_send" class="btn btn-dark btn-icon"><i class="icon-envelope"></i><span>Send</span></a>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>	
+	<!-- END CONTACTS SECTION -->
+	
+	<!-- BEGIN FOOTER -->
+	<footer id="footer" class="bg-color2">
+		<ul class="sn-icons"><!-- BEGIN SOCIAL ICONS -->
+			<li><a href=""><i class="icon-facebook-sign"></i></a></li>
+			<li><a href=""><i class="icon-twitter-sign"></i></a></li>
+			<li><a href=""><i class="icon-instagram"></i></a></li>
+			<li><a href=""><i class="icon-google-plus-sign"></i></a></li>
+			<li><a href=""><i class="icon-pinterest-sign"></i></a></li>
+			<li><a href=""><i class="icon-rss-sign"></i></a></li>
+		</ul><!-- END SOCIAL ICONS -->
+	</footer>
+	<!-- END FOOTER -->
+	
+	<!-- myConcerts and myPlaylist objects -->
+	<script src="js/google_maps_marker/myconcerts.js" type="text/javascript"></script>
+	<script src="music/myplaylist.js" type="text/javascript"></script>
+	
+	<!-- Libs -->
+
+	<script src="js/plugins.js" type="text/javascript"></script>
+	<script src="twitter/jquery.tweet.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/slideshow/slideshow.js" type="text/javascript"></script>
+	
+	<script src="js/scripts.js"></script>
+
+	<script type="text/javascript">
+
+		$(function () {
+			$.ajax({
+				type:"GET",
+				contentType:"application/json;charset=UTF-8",
+				url:"getIndexUploadSong",
+				success:function (result) {
+					var firstUl = document.getElementById("first-ul")
+					var secondUl = document.getElementById("second-ul")
+                    for (var i = 0; i < result.length ; i++) {
+						var data = result[i]
+						var li = getDataRow1(data)
+						var li2 = getDataRow2(data)
+						firstUl.appendChild(li)
+						secondUl.appendChild(li2)
+                    }
+                    function getDataRow1(h) {
+                        var li = document.createElement('li')
+                        var a = document.createElement('a')
+                        var img = document.createElement('img')
+                        var I = document.createElement('i')
+                        a.href = "www.baidu.com"
+                        a.setAttribute("title",h.name)
+                        img.setAttribute('src',h.coverUrl)
+                        I.setAttribute('class',"hover-icon")
+                        a.appendChild(I)
+                        li.appendChild(a)
+                        li.appendChild(img)
+						return li;
+                    }
+                    function getDataRow2(h) {
+                        var followBtn = document.createElement('button')
+                        followBtn.setAttribute("class","btn btn-dark btn-icon")
+                        followBtn.setAttribute("style","font-size:10px")
+                        followBtn.innerHTML = "<i class='icon-heart' style='font-size: 10px'></i>关注</button>"
+                        followBtn.onclick=function () {
+                            if(getCookie("uid")==false){
+                                alert("你还未登录，不能关注")
+                            }
+                            else{
+                                $.ajax({
+                                    type:"GET",
+                                    contentType:"application/json;charset=UTF-8",
+                                    url:"follow?userName="+h.userName+"&uid="+getCookie("uid"),
+                                    success:function (result1) {
+                                        if(result1.code==1){
+                                            alert("关注成功")
+                                        }
+                                        else{
+                                            alert("这个小可爱已被您关注过了")
+                                        }
+                                    },
+                                    error:function () {
+                                        alert("网络出了点问题，请稍等")
+                                    }
+                                })
+                            }
+                        }
+                        var li2 = document.createElement('li')
+                        li2.innerHTML = "歌名:"+h.name+'<br/>'
+                            +"上传时间："+h.createTime.substring(0,10)+'<br/>'
+                            +"作者:"+h.userName
+                        li2.appendChild(followBtn)
+						return li2
+                    }
+                },
+                error:function () {
+					alert("网络出了点问题，请稍等")
+                }
+			})
+        })
+		$('#search-btn').click(function () {
+		   $("#searchMusicTable").empty();
+			var searchSong = $("#search-song").val()
+			if(searchSong==""||searchSong==undefined){
+			    alert("输入歌曲名不能为空哦")
+			}
+			else{
+			    $.ajax({
+					type:"GET",
+                    contentType:"application/json;charset=UTF-8",
+                    url:"search?name="+searchSong,
+					success:function (data) {
+                        var tbody = document.getElementById("searchMusicTable");
+                        for(var i = 0;i < data.length; i++){ //遍历一下json数据
+                            var trow = getDataRow(data[i]); //定义一个方法,返回tr数据
+                            tbody.appendChild(trow);
+                        }
+                        function getDataRow(h){
+                            var row = document.createElement('tr'); //创建行
+
+                            var idCell = document.createElement('td'); //创建第一列id
+                            idCell.innerHTML = h.song_name; //填充数据
+                            row.appendChild(idCell); //加入行  ，下面类似
+
+                            var nameCell = document.createElement('td');//创建第二列name
+                            nameCell.innerHTML = h.author;
+                            row.appendChild(nameCell);
+
+
+                            //到这里，json中的数据已经添加到表格中，下面为每行末尾添加删除按钮
+
+                            var delCell = document.createElement('td');//创建第三列，操作列
+                            row.appendChild(delCell);
+                            var btnPlay = document.createElement('input'); //创建一个input控件
+                            btnPlay.setAttribute('type','button'); //type="button"
+                            btnPlay.setAttribute('value','播放');
+                            var btnStop = document.createElement('input');
+                            btnStop.setAttribute('type','button');
+                            btnStop.setAttribute('value','收藏');
+                            //播放音乐操作
+                            btnPlay.onclick=function(){
+                                $("#myaudio").attr("src",h.url);
+                                var myAudio = document.getElementById("myaudio");
+                                myAudio.play();
+                            }
+                            btnStop.onclick = function(){
+                                $.ajax({
+                                    type:'POST',
+                                    contentType:"application/json;charset=UTF-8",
+                                    url: 'saveLoveSong?uid='+getCookie("uid")+"&sid="+h.sid,
+                                    success:function (result) {
+                                        if(result.code==1){
+                                            alert("收藏成功")
+                                        }
+                                        else{
+                                            alert("歌曲已收藏过")
+                                        }
+                                    },
+                                    error:function () {
+                                        alert("网络或者服务器出了点问题，请稍等")
+                                    }
+                                })
+                            }
+                            delCell.appendChild(btnPlay);  //把播放按钮加入td，别忘了
+                            delCell.appendChild(btnStop);
+
+                            return row; //返回tr数据
+                        }
+                    },
+                    error:function () {
+						alert("出了一些小小的故障，请稍等")
+                    }
+				})
+			}
+
+        })
+		$('#search-people-btn').click(function () {
+            $("#searchMusicTable").empty();
+            var searchPeopleName = $("#search-people").val()
+            if(searchPeopleName==""||searchPeopleName==undefined){
+                alert("输入人名不能为空哦")
+            }
+            else{
+                $.ajax({
+                    type:"POST",
+                    contentType:"application/json;charset=UTF-8",
+                    url:"searchPeople?searchPeopleName="+searchPeopleName,
+					success:function (data) {
+                        var tbody = document.getElementById("searchMusicTable");
+                        for(var i = 0;i < data.length; i++){ //遍历一下json数据
+                            var trow = getDataRow(data[i]); //定义一个方法,返回tr数据
+                            tbody.appendChild(trow);
+                        }
+                        function getDataRow(h) {
+                            var p = document.createElement("p");
+                            p.setAttribute("style","text-align:center")
+                        	var a = document.createElement("a");
+                        	a.innerHTML = h.name+"<br/>";
+                        	a.href = "userPage?uid="+h.uid;
+                        	p.appendChild(a)
+                        	return p;
+                        }
+                    },
+					error:function () {
+						alert('网络出了点问题，稍等')
+                    }
+				})
+			}
+        })
+		$('#login-btn').click(function () {
+			var data = {
+			    "name" : $("#loginName").val(),
+				"password":$("#loginPassword").val()
+			}
+			$.ajax({
+				type:"POST",
+                contentType:"application/json;charset=UTF-8",
+				url:"login",
+				data:JSON.stringify(data),
+				success:function (result) {
+					if(result!=(-1)){
+					    setCookie("ssocookie","user")
+						setCookie("name",data.name)
+						setCookie("uid",result)
+						location.reload()
+					}
+					else{
+					    alert("账号或密码错误，请重新输入")
+					}
+                }
+			})
+        })
+        $('#register-btn').click(function () {
+            var data = {
+                "name" : $("#registerName").val(),
+                "password":$("#registerPassword").val(),
+				"identity":$("#user-Type").val()
+            }
+            $.ajax({
+				type:"POST",
+				contentType:"application/json;charset=UTF-8",
+                data:JSON.stringify(data),
+				url:'register',
+				success:function (data) {
+					if(data.code==1){
+					    alert("注册成功")
+					}
+					else{
+					    alert("用户名已存在，注册失败")
+					}
+                },
+                error:function () {
+					alert("发生了一些异常")
+                }
+			})
+        })
+        $(function(){
+            $.ajax({
+                type: "GET",
+                contentType: "application/json;charset=UTF-8",
+                async: false,
+                url: 'musicTable',
+                success: function (data) {
+                    var tbody = document.getElementById("musicbody");
+                    for(var i = 0;i < data.length; i++){ //遍历一下json数据
+                        var trow = getDataRow(data[i]); //定义一个方法,返回tr数据
+                        tbody.appendChild(trow);
+                    }
+                    function getDataRow(h){
+                        var row = document.createElement('tr'); //创建行
+
+                        var idCell = document.createElement('td'); //创建第一列id
+                        idCell.innerHTML = h.song_name; //填充数据
+                        row.appendChild(idCell); //加入行  ，下面类似
+
+                        var nameCell = document.createElement('td');//创建第二列name
+                        nameCell.innerHTML = h.author;
+                        row.appendChild(nameCell);
+
+
+                        //到这里，json中的数据已经添加到表格中，下面为每行末尾添加删除按钮
+
+                        var delCell = document.createElement('td');//创建第三列，操作列
+                        row.appendChild(delCell);
+                        var btnPlay = document.createElement('input'); //创建一个input控件
+                        btnPlay.setAttribute('type','button'); //type="button"
+                        btnPlay.setAttribute('value','播放');
+						var btnStop = document.createElement('input');
+                        btnStop.setAttribute('type','button');
+                        btnStop.setAttribute('value','收藏');
+                        //播放音乐操作
+                        btnPlay.onclick=function(){
+                          $("#myaudio").attr("src",h.url);
+                          var myAudio = document.getElementById("myaudio");
+                          myAudio.play();
+                        }
+                        btnStop.onclick = function(){
+                            $.ajax({
+                                type:'POST',
+                                contentType:"application/json;charset=UTF-8",
+                                url: 'saveLoveSong?uid='+getCookie("uid")+"&sid="+h.sid,
+                                success:function (result) {
+                                    if(result.code==1){
+                                        alert("收藏成功")
+                                    }
+                                    else{
+                                        alert("歌曲已收藏过")
+                                    }
+                                },
+                                error:function () {
+                                    alert("网络或者服务器出了点问题，请稍等")
+                                }
+                            })
+                        }
+                        delCell.appendChild(btnPlay);  //把播放按钮加入td，别忘了
+						delCell.appendChild(btnStop);
+
+                        return row; //返回tr数据
+                    }
+                }
+            });
+        });
+        function logout() {
+            removeCookie("ssocookie")
+			removeCookie("name")
+            removeCookie("uid")
+        }
+		function createMusicTable(data){
+            $.ajax({
+
+			})
+		}
+
+
+	</script>
+	<div id="player1" class="aplayer"></div>
+</body>
+
+ <script src="js/util.js"></script>
+ <script src="js/header.js"></script>
+
+</html>
